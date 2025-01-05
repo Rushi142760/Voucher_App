@@ -1,0 +1,17 @@
+# Ignore node_modules and build folders
+node_modules/
+build/
+dist/
+target/
+backend/
+jre-installer/
+package.json
+*.class
+*.jar
+
+
+# Ignore log files
+*.log
+
+# Ignore environment files
+.env

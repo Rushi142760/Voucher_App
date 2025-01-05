@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voucher List</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h3 class="text-primary mb-2 my-0">Search Customer Purches Voucher</h3>
+        <br>
+    
+        <div class="row mb-3">
+          <!-- Search by REF No -->
+          <div class="col-md-6">
+            <h5>Search by REF NO</h5>
+            <div class="input-group">
+              <input type="text" id="refNoInput" class="form-control" placeholder="Enter REF NO">
+              <button class="btn btn-primary" onclick="searchByRefNo()">Search</button>
+            </div>
+          </div>
+    
+          <!-- Search by Date -->
+          <div class="col-md-6">
+            <h5>Search by Date</h5>
+            <div class="input-group">
+              <input type="date" id="dateInput" class="form-control" >
+              <button class="btn btn-primary" onclick="searchByDate()">Search</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Results -->
+        <div>
+          <!-- <h3>Response</h3> -->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>REF NO</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th>Customer Name</th>
+                <!-- <th>Bill Type</th>
+                <th>Metal Type</th> -->
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="results"></tbody>
+          </table>
+        </div>
+      </div>
+    <script src="./js/voucher-list.js"></script>
+</body>
+</html>

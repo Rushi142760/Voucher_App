@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Voucher</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script defer src="./js/view-voucher.js"></script>
+</head>
+<body>
+    <!-- <div class="container mt-4">
+        <h3 class="text-primary">Edit Voucher</h3>
+        <form id="voucherForm">
+            <div class="mb-3">
+                <label for="billRefNo" class="form-label">Bill Reference Number</label>
+                <input type="text" id="billRefNo" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" id="date" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="totalAmount" class="form-label">Total Amount</label>
+                <input type="number" id="totalAmount" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="custName" class="form-label">Customer Name</label>
+                <input type="text" id="custName" class="form-control">
+            </div> -->
+            <div class="container mt-4">
+                <h3 class="text-primary">Edit Voucher</h3>
+                <form id="voucherForm">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="billRefNo" class="form-label">Bill Reference Number</label>
+                                    <input type="text" id="billRefNo" class="form-control" readonly>
+                                </td>
+                                <td>
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" id="date" class="form-control">
+                                </td>
+                                <td>
+                                    <label for="totalAmount" class="form-label">Total Amount</label>
+                                    <input type="number" id="totalAmount" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                
+                                <td>
+                                    <label for="custName" class="form-label">Customer Name</label>
+                                    <input type="text" id="custName" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+               
+            
+            
+            
+            <div id="voucherItems" class="mb-3">
+                <!-- Voucher items will be displayed here -->
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-danger mb-4" onclick="deleteVoucher()">Delete</button>
+                <button type="button" class="btn btn-success mb-4" onclick="saveVoucher()">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
