@@ -1,2 +1,2 @@
-# Vouvher_App
+# Voucher_App
 "Electron desktop app with Spring Boot backend"
