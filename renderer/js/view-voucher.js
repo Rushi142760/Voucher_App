@@ -26,14 +26,18 @@ function fetchVoucherDetails(refNo) {
         });
 }
 
-
-
-
 function populateForm(data) {
     document.getElementById('billRefNo').value = data.billRefNo;
     document.getElementById('date').value = data.date;
     document.getElementById('totalAmount').value = data.totalAmount;
+    document.getElementById('billType').value = data.billType;
+    document.getElementById('metalType').value = data.metalType;
     document.getElementById('custName').value = data.custName;
+    document.getElementById('custPhone').value = data.custPhone;
+    document.getElementById('address').value = data.address;
+    document.getElementById('modeOfPayment').value = data.modeOfPayment;
+    document.getElementById('billRate').value = data.billRate;
+    document.getElementById('avgWeight').value = data.avgWeight;
 
     const voucherItemsContainer = document.getElementById('voucherItems');
     voucherItemsContainer.innerHTML = `
@@ -71,27 +75,22 @@ function populateForm(data) {
                     <td id="totalNetWeight">0</td>
                     <td id="totalFineWeight">0</td>
                     <td></td>
-                    <td id="totalAmount">0</td>
+                    <td id="totalAmount1">0</td>
                 </tr>
             </tfoot>
         </table>
     `;
 
-    // Call updateTotals initially to calculate the totals for the initial data
     updateTotals();
 }
 
 function recalculateAmount(index) {
-    const grossWeight = parseFloat(document.getElementById(`grossWeight${index}`).value) || 0;
-    const netWeight = parseFloat(document.getElementById(`netWeight${index}`).value) || 0;
     const fineWeight = parseFloat(document.getElementById(`fineWeight${index}`).value) || 0;
     const rate = parseFloat(document.getElementById(`rate${index}`).value) || 0;
 
-    // Recalculate amount (customize this formula if needed)
     const amount = fineWeight * rate;
-    document.getElementById(`amount${index}`).value = amount;  // Set the calculated amount
+    document.getElementById(`amount${index}`).value = amount;
 
-    // Update totals after recalculation
     updateTotals();
 }
 
@@ -100,7 +99,7 @@ function updateTotals() {
     let totalGrossWeight = 0;
     let totalNetWeight = 0;
     let totalFineWeight = 0;
-    let totalAmount = 0;
+    let totalAmount1 = 0;
 
     rows.forEach((row, index) => {
         const grossWeight = parseFloat(document.getElementById(`grossWeight${index}`).value) || 0;
@@ -111,150 +110,88 @@ function updateTotals() {
         totalGrossWeight += grossWeight;
         totalNetWeight += netWeight;
         totalFineWeight += fineWeight;
-        totalAmount += amount;
+        totalAmount1 += amount;
     });
 
-    // Update totals in the footer
     document.getElementById('totalGrossWeight').textContent = totalGrossWeight;
     document.getElementById('totalNetWeight').textContent = totalNetWeight;
     document.getElementById('totalFineWeight').textContent = totalFineWeight;
-    document.getElementById('totalAmount').textContent = totalAmount;
+    document.getElementById('totalAmount1').textContent = totalAmount1;
+
+    document.getElementById('totalAmount').value = totalAmount1;
 }
-
-
-
-
-
-
-function saveVoucher() {
-    // Collect form data into an object
-    const updatedVoucher = {
-        billRefNo: document.getElementById('billRefNo').value,
-        date: document.getElementById('date').value,
-        totalAmount: parseFloat(document.getElementById('totalAmount').value) || 0, // Ensure valid number
-        custName: document.getElementById('custName').value,
-        voucherDetails: []
-    };
-
-    const itemsContainer = document.getElementById('voucherItems');
-    const itemDivs = itemsContainer.querySelectorAll('.border');
-
-    itemDivs.forEach((itemDiv, index) => {
-        // Retrieve input values for each item and validate
-        const jewelryName = document.getElementById(`itemName${index}`).value;
-        const grossWeight = parseFloat(document.getElementById(`grossWeight${index}`).value) || 0;
-        const netWeight = parseFloat(document.getElementById(`netWeight${index}`).value) || 0;
-        const fineWeight = parseFloat(document.getElementById(`fineWeight${index}`).value) || 0;
-        const rate = parseFloat(document.getElementById(`rate${index}`).value) || 0;
-        const amount = parseFloat(document.getElementById(`amount${index}`).value) || 0;
-
-        // Ensure all fields have valid values before adding to voucherDetails
-        if (jewelryName && grossWeight && netWeight && fineWeight && rate && amount) {
-            updatedVoucher.voucherDetails.push({
-                jewelryName,
-                grossWeight,
-                netWeight,
-                fineWeight,
-                rate,
-                amount
-            });
-        } else {
-            console.error(`Missing or invalid data for item ${index + 1}`);
-        }
-    });
-
-    // Send updated voucher data to the server
-    fetch(`http://localhost:8082/api/vouchers/${updatedVoucher.billRefNo}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedVoucher)
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to save voucher');
-            }
-            alert('Voucher updated successfully!');
-            // Notify parent window to refresh the list
-            window.opener.postMessage({ action: 'update', refNo: updatedVoucher.billRefNo }, '*');
-            window.close();
-        })
-        .catch(error => {
-            console.error('Error saving voucher:', error);
-            alert('Failed to save voucher.');
-        });
-}
-
-
-// function saveVoucher() {
-//     const updatedVoucher = {
-//         billRefNo: document.getElementById('billRefNo').value,
-//         date: document.getElementById('date').value,
-//         totalAmount: parseFloat(document.getElementById('totalAmount').value),
-//         custName: document.getElementById('custName').value,
-//         voucherDetails: []
-//     };
-
-//     const itemsContainer = document.getElementById('voucherItems');
-//     const itemDivs = itemsContainer.querySelectorAll('.border');
-
-//     itemDivs.forEach((itemDiv, index) => {
-//         updatedVoucher.voucherDetails.push({
-//             jewelryName: document.getElementById(`itemName${index}`).value,
-//             grossWeight: parseFloat(document.getElementById(`grossWeight${index}`).value),
-//             netWeight: parseFloat(document.getElementById(`netWeight${index}`).value),
-//             fineWeight: parseFloat(document.getElementById(`fineWeight${index}`).value),
-//             rate: parseFloat(document.getElementById(`rate${index}`).value),
-//             amount: parseFloat(document.getElementById(`amount${index}`).value)
-//         });
-//     });
-
-//     fetch(`http://localhost:8082/api/vouchers/${updatedVoucher.billRefNo}`, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(updatedVoucher)
-//     })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Failed to save voucher');
-//             }
-//             alert('Voucher updated successfully!');
-//             // Notify parent window to refresh the list
-//             window.opener.postMessage({ action: 'update', refNo: updatedVoucher.billRefNo }, '*');
-//             window.close();
-//         })
-//         .catch(error => {
-//             console.error('Error saving voucher:', error);
-//             alert('Failed to save voucher.');
-//         });
-// }
 
 function deleteVoucher() {
     const refNo = document.getElementById('billRefNo').value;
 
-    fetch(`http://localhost:8082/api/vouchers/${refNo}`, {
-        method: 'DELETE'
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to delete voucher');
-            }
-            alert('Voucher deleted successfully!');
-            // Notify parent window to refresh the list
-            window.opener.postMessage({ action: 'delete', refNo: refNo }, '*');
-            window.close();
+    if (confirm('Are you sure you want to delete this voucher?')) {
+        fetch(`http://localhost:8082/api/vouchers/${refNo}`, {
+            method: 'DELETE',
         })
-        .catch(error => {
-            console.error('Error deleting voucher:', error);
-            alert('Failed to delete voucher.');
-        });
+            .then(response => {
+                if (response.ok) {
+                    alert('Voucher deleted successfully.');
+                    // Notify the parent window and close the current window
+                    window.opener.postMessage({ action: 'delete', refNo: refNo }, '*');
+                    window.close();
+                } else {
+                    throw new Error('Failed to delete voucher');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting voucher:', error);
+                alert('Error deleting voucher. Please try again.');
+            });
+    }
 }
 
+function saveVoucher() {
+    const refNo = document.getElementById('billRefNo').value;
+    const updatedVoucher = {
+        billRefNo: refNo,
+        date: document.getElementById('date').value,
+        totalAmount: parseFloat(document.getElementById('totalAmount').value) || 0,
+        billType: document.getElementById('billType').value,
+        metalType: document.getElementById('metalType').value,
+        custName: document.getElementById('custName').value,
+        custPhone: document.getElementById('custPhone').value,
+        address: document.getElementById('address').value,
+        modeOfPayment: document.getElementById('modeOfPayment').value,
+        billRate: parseFloat(document.getElementById('billRate').value) || 0,
+        avgWeight: parseFloat(document.getElementById('avgWeight').value) || 0,
+        voucherDetails: [],
+    };
 
+    const rows = document.querySelectorAll("#voucherTableBody tr");
+    rows.forEach((row, index) => {
+        updatedVoucher.voucherDetails.push({
+            jewelryName: document.getElementById(`itemName${index}`).value,
+            grossWeight: parseFloat(document.getElementById(`grossWeight${index}`).value) || 0,
+            netWeight: parseFloat(document.getElementById(`netWeight${index}`).value) || 0,
+            fineWeight: parseFloat(document.getElementById(`fineWeight${index}`).value) || 0,
+            rate: parseFloat(document.getElementById(`rate${index}`).value) || 0,
+            amount: parseFloat(document.getElementById(`amount${index}`).value) || 0,
+        });
+    });
 
-
-
+    fetch(`http://localhost:8082/api/vouchers/${refNo}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedVoucher),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Voucher updated successfully.');
+                // Notify the parent window and close the current window
+                window.opener.postMessage({ action: 'update', refNo: refNo }, '*');
+                window.close();
+            } else {
+                throw new Error('Failed to update voucher');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating voucher:', error);
+            alert('Error updating voucher. Please try again.');
+        });
+}
 
