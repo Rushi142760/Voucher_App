@@ -6,7 +6,7 @@
     <title>Create Customer Voucher</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/styles.css">
-    
+  
 </head>
 <body>
     <div class="container">
@@ -35,37 +35,36 @@
                                     <label for="billTypeByWeight" class="form-check-label">By Weight</label>
                                 </div>
                             </td>
-                            
                         </tr>
                         <tr>
                             <td><label for="metalType" class="form-label">Metal Type</label></td>
                             <td><input type="text" class="form-control" id="metalType" required></td>
                             <td><label for="custName" class="form-label">Customer Name</label></td>
-                            <td><input type="text" class="form-control" id="custName" required></td>
+                            <td><input type="text" class="form-control" id="custName" ></td>
                         </tr>
                         <tr>
-                            <td><label for="custPhone" class="form-label">Customer Phone</label></td>
-                            <td><input type="text" class="form-control" id="custPhone" required></td>
-                            <td><label for="address" class="form-label">Customer Address</label></td>
-                            <td><input type="text" class="form-control" id="address" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="modeOfPayment" class="form-label">Mode of Payment</label></td>
-                            <td><input type="text" class="form-control" id="modeOfPayment" required></td>
                             <td><label for="billRate" class="form-label">Bill Rate</label></td>
-                            <td><input type="number" class="form-control" id="billRate" required></td>
+                            <td><input type="number" class="form-control" id="billRate" ></td>
+                            <td><label for="address" class="form-label">Customer Address</label></td>
+                            <td><input type="text" class="form-control" id="address" ></td>
                         </tr>
                         <tr>
                             <td><label for="avgWeight" class="form-label">Average Weight</label></td>
-                            <td><input type="number" step="0.1" class="form-control" id="avgWeight" required></td>
+                            <td><input type="number" step="0.1" class="form-control" id="avgWeight"></td>
+                            <td><label for="custPhone" class="form-label">Customer Phone</label></td>
+                            <td><input type="text" class="form-control" id="custPhone" ></td>
+                            
+                        </tr>
+                        <tr>
                             <td></td>
                             <td></td>
+                            <td><label for="modeOfPayment" class="form-label">Mode of Payment</label></td>
+                            <td><input type="text" class="form-control" id="modeOfPayment" ></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- <h3 class="text-success mb-3">Voucher Details</h3> -->
             <div class="form-section">
                 <table class="table table-bordered" id="voucherDetailsTable">
                     <thead class="table-light">
@@ -87,28 +86,29 @@
                             <td><input type="number" class="form-control" name="fineWeight[]" step="0.1"></td>
                             <td><input type="number" class="form-control" name="rate[]"></td>
                             <td><input type="number" class="form-control" name="amount[]" readonly></td>
-                            <td><button type="button" class="btn btn-danger" style="text-align: left;">Remove</button></td>
+                            <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="4"><strong>Total Weight</strong></td>
-                            <td id="totalWeight">0</td>
-                            <td><strong>Total Amount</strong></td>
-                            <td id="totalAmountCell">0</td>
+                            <td><strong>Totals</strong></td>
+                            <td id="grossWeightTotal">0</td>
+                            <td id="netWeightTotal">0</td>
+                            <td id="fineWeightTotal">0</td>
+                            <td></td>
+                            <td id="totalAmountT">0</td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
 
             <button type="button" class="btn btn-success" id="addRow" style="width: 100%">Add Voucher Detail</button>
-            <!-- <button type="submit" class="btn btn-primary mt-3" >Create Voucher</button> -->
-           
+
             <div class="d-flex justify-content-center mt-3">
                 <button type="submit" class="btn btn-primary mx-3" style="font-size: 16px; width: 130px; height: 60px;">Save</button>
                 <button type="submit" class="btn btn-secondary mx-3" style="font-size: 16px; width: 130px; height: 60px; text-align: center;">Save and Print</button>
             </div>
-
         </form>
     </div>
 
