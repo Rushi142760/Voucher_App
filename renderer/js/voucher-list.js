@@ -1,3 +1,26 @@
+console.log('voucher-list.js running')
+// Fetch all vouchers on page load
+fetchAllVouchers()
+
+// Function to fetch and display all vouchers
+function fetchAllVouchers() {
+  fetch('http://localhost:8082/api/vouchers')
+  
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      displayResults(data);
+    })
+    .catch(error => {
+      console.error('Error fetching all vouchers:', error);
+      alert('Failed to fetch all vouchers.');
+    });
+}
+
 // Function to display results in a table
 function displayResults(data) {
   const resultsElement = document.getElementById('results');
@@ -90,16 +113,16 @@ function viewVoucher(refNo) {
 }
 
 // Function to handle Edit button
-function editVoucher(refNo) {
-  alert(`Edit voucher with REF NO: ${refNo}`);
-  // You can implement redirection to an edit page or show a form in a modal.
-}
+// function editVoucher(refNo) {
+//   alert(`Edit voucher with REF NO: ${refNo}`);
+//   // You can implement redirection to an edit page or show a form in a modal.
+// }
 
-// Function to handle Delete button
-function deleteVoucher(refNo) {
-  alert(`Delete voucher with REF NO: ${refNo}`);
-  // Implement deletion logic here.
-}
+// // Function to handle Delete button
+// function deleteVoucher(refNo) {
+//   alert(`Delete voucher with REF NO: ${refNo}`);
+//   // Implement deletion logic here.
+// }
 
 // Function to search by REF No
 function searchByRefNo() {
