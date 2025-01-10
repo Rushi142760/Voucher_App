@@ -1,117 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Customer Voucher</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/styles.css">
-  
+
 </head>
+
 <body>
-    <div class="container">
-        <h3 class="text-primary mb-2 my-0">Create Customer Purches Voucher</h3>
-        <form id="voucherForm">
-            <div class="form-section">
-                <table class="table table-striped table-bordered">
-                    <tbody>
-                        <tr>
-                            <td><label for="billRefNo" class="form-label">Bill Reference Number</label></td>
-                            <td><input type="text" class="form-control" id="billRefNo" required></td>
-                            <td><label for="date" class="form-label">Date</label></td>
-                            <td><input type="date" class="form-control" id="date" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="totalAmount" class="form-label">Total Amount</label></td>
-                            <td><input type="number" class="form-control" id="totalAmount" required></td>
-                            <td><label for="billType" class="form-label">Bill Type</label></td>
-                            <td>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="billTypeByRate" name="billType" value="By Rate" checked required>
-                                    <label for="billTypeByRate" class="form-check-label">By Rate</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="billTypeByWeight" name="billType" value="By Weight" required>
-                                    <label for="billTypeByWeight" class="form-check-label">By Weight</label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="metalType" class="form-label">Metal Type</label></td>
-                            <td><input type="text" class="form-control" id="metalType" required></td>
-                            <td><label for="custName" class="form-label">Customer Name</label></td>
-                            <td><input type="text" class="form-control" id="custName" ></td>
-                        </tr>
-                        <tr>
-                            <td><label for="billRate" class="form-label">Bill Rate</label></td>
-                            <td><input type="number" class="form-control" id="billRate" ></td>
-                            <td><label for="address" class="form-label">Customer Address</label></td>
-                            <td><input type="text" class="form-control" id="address" ></td>
-                        </tr>
-                        <tr>
-                            <td><label for="avgWeight" class="form-label">Average Weight</label></td>
-                            <td><input type="number" step="0.1" class="form-control" id="avgWeight"></td>
-                            <td><label for="custPhone" class="form-label">Customer Phone</label></td>
-                            <td><input type="text" class="form-control" id="custPhone" ></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td><label for="modeOfPayment" class="form-label">Mode of Payment</label></td>
-                            <td><input type="text" class="form-control" id="modeOfPayment" ></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div id="loader" class="loader"></div>
+    <div id="content" style="display: none;">
+        <div class="container">
+            <h3 class="text-primary mb-2 my-0">Create Customer Purches Voucher</h3>
+            <form id="voucherForm">
+                <div class="form-section">
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><label for="billRefNo" class="form-label">Bill Reference Number</label></td>
+                                <td><input type="text" class="form-control" id="billRefNo" required></td>
+                                <td><label for="date" class="form-label">Date</label></td>
+                                <td><input type="date" class="form-control" id="date" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="totalAmount" class="form-label">Total Amount</label></td>
+                                <td><input type="number" class="form-control" id="totalAmount" required></td>
+                                <td><label for="billType" class="form-label">Bill Type</label></td>
+                                <td>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="billTypeByRate" name="billType"
+                                            value="By Rate" checked required>
+                                        <label for="billTypeByRate" class="form-check-label">By Rate</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="billTypeByWeight"
+                                            name="billType" value="By Weight" required>
+                                        <label for="billTypeByWeight" class="form-check-label">By Weight</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="metalType" class="form-label">Metal Type</label></td>
+                                <td>
+                                    <select class="form-control" id="metalType" required>
+                                        <option value="Gold" selected>Gold</option>
+                                        <option value="Silver">Silver</option>
+                                    </select>
+                                </td>
 
-            <div class="form-section">
-                <table class="table table-bordered" id="voucherDetailsTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Jewellery Name</th>
-                            <th>Gross Weight</th>
-                            <th>Net Weight</th>
-                            <th>Fine Weight</th>
-                            <th>Rate</th>
-                            <th>Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="text" class="form-control" name="jewelryName[]"></td>
-                            <td><input type="number" class="form-control" name="grossWeight[]" step="0.1"></td>
-                            <td><input type="number" class="form-control" name="netWeight[]" step="0.1"></td>
-                            <td><input type="number" class="form-control" name="fineWeight[]" step="0.1"></td>
-                            <td><input type="number" class="form-control" name="rate[]"></td>
-                            <td><input type="number" class="form-control" name="amount[]" readonly></td>
-                            <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td><strong>Totals</strong></td>
-                            <td id="grossWeightTotal">0</td>
-                            <td id="netWeightTotal">0</td>
-                            <td id="fineWeightTotal">0</td>
-                            <td></td>
-                            <td id="totalAmountT">0</td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                                <td><label for="custName" class="form-label">Customer Name</label></td>
+                                <td><input type="text" class="form-control" id="custName"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="billRate" class="form-label">Bill Rate</label></td>
+                                <td><input type="number" class="form-control" id="billRate"></td>
+                                <td><label for="address" class="form-label">Customer Address</label></td>
+                                <td><input type="text" class="form-control" id="address"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="avgWeight" class="form-label">Average Weight</label></td>
+                                <td><input type="number" step="0.1" class="form-control" id="avgWeight" readonly></td>
+                                <td><label for="custPhone" class="form-label">Customer Phone</label></td>
+                                <td><input type="text" class="form-control" id="custPhone"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><label for="modeOfPayment" class="form-label">Mode of Payment</label></td>
+                                <td><input type="text" class="form-control" id="modeOfPayment"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <button type="button" class="btn btn-success" id="addRow" style="width: 100%">Add Voucher Detail</button>
+                <div class="form-section">
+                    <table class="table table-bordered" id="voucherDetailsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Jewellery Name</th>
+                                <th>Gross Weight</th>
+                                <th>Net Weight</th>
+                                <th>Fine Weight</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control jewelryInput" name="jewelryName[]"
+                                        list="jewelryOptions" placeholder="Enter or Select" required>
+                                    <datalist id="jewelryOptions"></datalist>
+                                </td>
+                                <td><input type="number" class="form-control" name="grossWeight[]" step="0.1"></td>
+                                <td><input type="number" class="form-control" name="netWeight[]" step="0.1"></td>
+                                <td><input type="number" class="form-control" name="fineWeight[]" step="0.1"></td>
+                                <td><input type="number" class="form-control" name="rate[]"></td>
+                                <td><input type="number" class="form-control" name="amount[]" readonly></td>
+                                <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><strong>Totals</strong></td>
+                                <td id="grossWeightTotal">0</td>
+                                <td id="netWeightTotal">0</td>
+                                <td id="fineWeightTotal">0</td>
+                                <td></td>
+                                <td id="totalAmountT">0</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-            <div class="d-flex justify-content-center mt-3">
-                <button type="submit" class="btn btn-primary mx-3" style="font-size: 16px; width: 130px; height: 60px;">Save</button>
-                <button type="submit" class="btn btn-secondary mx-3" style="font-size: 16px; width: 130px; height: 60px; text-align: center;">Save and Print</button>
-            </div>
-        </form>
+                <button type="button" class="btn btn-success" id="addRow" style="width: 100%">Add Voucher
+                    Detail</button>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn btn-primary mx-3"
+                        style="font-size: 16px; width: 130px; height: 60px;">Save</button>
+                    <button type="submit" class="btn btn-secondary mx-3"
+                        style="font-size: 16px; width: 130px; height: 60px; text-align: center;">Save and Print</button>
+                </div>
+            </form>
+        </div>
     </div>
-
     <script src="./js/create-voucher.js" defer></script>
 </body>
+
 </html>
